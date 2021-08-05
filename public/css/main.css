@@ -1,0 +1,96 @@
+/*  paramétres principaux*/ 
+*{
+    scroll-behavior: smooth;
+
+  }
+  ::-webkit-scrollbar {
+    width: 12px;
+}
+ 
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    border-radius: 5px;
+
+}
+ 
+::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+    background: dodgerblue;
+
+}
+
+/* body{
+   background: url("bg1.jpg");
+    background-position: center;
+    background-size: cover;
+    background-attachment:fixed ;
+    background-repeat:no-repeat ;
+    min-height: 100%;
+
+} */
+body{
+
+    font-family: 'Montserrat', sans-serif !important;
+    
+     }
+#lang{
+    border-radius:3px;
+    border:none;
+    background: rgb(0, 103, 163);
+    color: white;
+}
+#lang:hover{
+    box-shadow: rgb(145, 215, 255) 0px 0px 4px 4px;
+
+}
+
+/*  admin  */
+
+.ad_m
+{
+   
+    background: #343a40;    ;
+    text-align: center;
+    min-width: 100%;
+    padding: 6px;
+    color: rgb(255, 255, 255);
+    border-radius:6px; 
+}
+
+#side_admin{
+    text-align: center;
+    background:rgb(255, 252, 252) !important;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    
+}
+#side_admin a{
+    padding: 10px;
+    text-decoration: none;
+    min-width: 90%;
+    margin: 2px;
+    border:solid 1px black;
+    color: black;
+    border-radius: 5px;
+}
+#side_admin a:hover{
+    background: #343a40;
+    color: white;
+
+}
+
+.admin_ele{
+    min-width: 95%;
+    font-weight: bold !important;
+}
+.admin_ele:hover{
+    box-shadow: rgb(8, 53, 66) 0px 0px 5px 5px;
+}
+.card{
+    background:rgba(255, 255, 255, 0.753) !important;
+}
+.sync:hover{
+    box-shadow:   rgb(87, 255, 176) 0px 0px 7px 7px;
+}
+

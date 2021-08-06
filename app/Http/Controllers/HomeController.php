@@ -169,6 +169,12 @@ class HomeController extends Controller
 
 
     }
+    public function getmail(Request $request){
+
+        $user = User::where('email',$request['email'])->get();
+        return response()->json(['user'=>$user]);
+
+    }
     public function ar_login(){
 
         return view('auth.ar_login');
@@ -439,6 +445,8 @@ public function location(Request $request){
 
 
 }
+
+
 
 public function our_clients(){
 

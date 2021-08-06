@@ -116,6 +116,8 @@ Route::get('/get_visits_between',[App\Http\Controllers\HomeController::class,'ge
 Route::get('/add_profil_pic',[App\Http\Controllers\HomeController::class,'add_profil_pic'])->middleware('auth');
 Route::post('/save_pic',[App\Http\Controllers\HomeController::class,'save_pic'])->middleware('auth');
 Route::get('/language',[App\Http\Controllers\HomeController::class,'languge']);
+Route::get('/getmail',[App\Http\Controllers\HomeController::class,'getmail']);
+
 Route::get('/mettre_ajour_statut',[App\Http\Controllers\HomeController::class,'mettre_ajour_statut'])->middleware('auth');
 Route::get('/set_cookie/{lg}',[App\Http\Controllers\HomeController::class,"set_language_cookie"]);
 Route::get('/ar/login',[App\Http\Controllers\HomeController::class,'ar_login'])->middleware('guest');

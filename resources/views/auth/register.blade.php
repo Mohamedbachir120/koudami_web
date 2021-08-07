@@ -407,6 +407,28 @@
                                         </div>
                            
                                     </div>
+                                    <div class="form-group row" hidden>
+                                        <label for="type_payement" class="col-md-4 col-form-label text-md-right">Moyen de payement:</label>
+            
+                                        <div class="col-md-6">
+                                            <select name="type_payement" class="form-control" id="type_payement">
+                                                <option value="CCP" selected>1- CCP </option>
+                                                <option value="Carte Edahabia">2- Carte Edahabia </option>
+                                                <option value="en espèces">3- Payement en espèces </option>
+                                 
+                                            </select>
+                                        </div>
+                               
+                                    </div>                     
+                                    <div class="form-group row" hidden>
+                                        <label for="Ncompte" class="col-md-4 col-form-label text-md-right">N°Compte:</label>
+                                        
+                                        <div class="col-md-6">
+                                        <input id="Ncompte" type="text" class="form-control" name="Ncompte" value="0000000" >
+                                        </div>
+                        
+                                   </div>
+                   
                                   
                                        
                                 <div class="d-flex flex-row justify-content-between">
@@ -496,10 +518,28 @@
 </html>
 
 <style>
-
-
+    ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: rgb(8, 0, 0) !important;
+    opacity: 1; /* Firefox */
+    }
+    #nonloadingstate{
+    min-height: 6px;
+    max-height: 6px;
+    
+    border-radius: 15px;
+    background-color: transparent;
+    width:75%;
+    }
+      #loadingstate{
+        min-height: 6px;
+        max-height: 6px;
+       
+        border-radius: 15px;
+        background-color: green;
+        width:25%;
+        transition: width 1s linear ;
+      }
     #onlyspinner,#second,#third,#forth{
-
         display: none ;
     }
     body{
@@ -512,14 +552,11 @@
         background-repeat: no-repeat;
         background-position: center;
         background-attachment: local;
-
-
     }
     footer{
         background: linear-gradient(45deg,rgb(1, 1, 49),dodgerblue);
     }
     .no-border{
-
         border: 0;
     }  
   
@@ -539,45 +576,14 @@
     option{
         overflow-wrap: break-word;
     }
-    ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-        color: rgb(8, 0, 0) !important;
-        opacity: 1; /* Firefox */
-        }
-
-        #nonloadingstate{
-
-        min-height: 6px;
-        max-height: 6px;
-       
-       border-radius: 15px;
-       background-color: transparent;
-       width:75%;
-
-        }
-      #loadingstate{
-
-        min-height: 6px;
-        max-height: 6px;
-       
-        border-radius: 15px;
-        background-color: green;
-        width:25%;
-        transition: width 1s linear ;
-      }  
-
-
+  
 </style>
 
 <script>
-
-
-
-
 var lang=JSON.parse(localStorage.getItem('myJavaScriptObject'));
   if(lang["language"]=="ar"){
     location.replace("/register/ar");
   }
-
     const repassword = /(([^\s]+.+)|(.+[^\s]+)){4,}/;
     const rephone=/((\d\d\s){4,}(\d\d))|((\d\d){5,})/
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -586,11 +592,9 @@ var lang=JSON.parse(localStorage.getItem('myJavaScriptObject'));
   function forwardfrom(value){
    
         switch (value){
-
             
      
             case "first": {
-
                 if($("#name").val().trim().length > 1){
                         msgidentif="";
                         $("#identiferror").text(msgidentif);
@@ -605,10 +609,8 @@ var lang=JSON.parse(localStorage.getItem('myJavaScriptObject'));
                     
                         },
                         success:function(response){
-
                             if(response.user.length == 0){
                                 $("#onlyspinner").hide();  
-
                                 msg="";
                                 $("#"+value).slideToggle();
                                 $("#second").slideToggle('slow'); 
@@ -616,42 +618,27 @@ var lang=JSON.parse(localStorage.getItem('myJavaScriptObject'));
                                 $('#nonloadingstate').css('width','50%');
                                 $('#state').text('Terminés(2/4)');
                                 $("#emailerror").text(msg);        
-
                             }else{
                                 $("#onlyspinner").hide();  
-
                                  msg = "cette adresse email est déja utilisée";
                                  $("#emailerror").text(msg);        
-
-
                             }
-
                                 },
                             });
                     
                                 }
                                 else{
-
                                  msg = "Veuillez saisir une adresse email valide";
                                  $("#emailerror").text(msg);        
-
-
-
                                 }
                             }else{
                                 msgidentif="Veuillez saisir un nom valide";
                                 $("#identiferror").text(msgidentif);
-
-
-
-
                             }    
-
                             break; 
                             
                             
                             }
-
             case "second":
                      if($("#function").val().trim().length > 1){
                             msgactivite="";
@@ -665,12 +652,8 @@ var lang=JSON.parse(localStorage.getItem('myJavaScriptObject'));
                         }else{
                             msgactivite="Veuillez saisir une actvité valide";
                             $("#functionerror").text(msgactivite);
-
-
-
                         }
                            break;
-
             case "third": $("#"+value).slideToggle();
                           $("#forth").slideToggle();           
                           $('#loadingstate').css('width','100%');  
@@ -685,17 +668,11 @@ var lang=JSON.parse(localStorage.getItem('myJavaScriptObject'));
                                         if(rephone.test($("#phone_number").val())){
                                             $("#phonenumbererror").text("");
                                             $("#registerform").submit();
-
-
                                         }else{
-
                                             phonenumbererror="veuillez saisir un numéro de téléhone valide";
                                             $("#phonenumbererror").text(phonenumbererror);
                                         }
                                         
-
-
-
                                     }
                                     else{
                                         passwordconfirmerror="le mot de passe est sa confirmation doivent être identique";
@@ -703,7 +680,6 @@ var lang=JSON.parse(localStorage.getItem('myJavaScriptObject'));
                                     } 
                             }
                             else{
-
                             passworderror=" veuillez saisir un mot de passe valide";
                             $("#passworderror").text(passworderror);
                             
@@ -711,15 +687,10 @@ var lang=JSON.parse(localStorage.getItem('myJavaScriptObject'));
              
              break;       
         }
-
     }
-
-
   
-
   function backwardfrom(value){
         switch (value){
-
             case "second":$("#"+value).slideToggle();
                           $("#first").slideToggle();           
                           $('#loadingstate').css('width','25%');  
@@ -727,7 +698,6 @@ var lang=JSON.parse(localStorage.getItem('myJavaScriptObject'));
                           $('#state').text('Terminés(1/4)');
                           
                             break;
-
             case "third": $("#"+value).slideToggle();
                           $("#second").slideToggle();          
                           $('#loadingstate').css('width','50%');  
@@ -743,19 +713,14 @@ var lang=JSON.parse(localStorage.getItem('myJavaScriptObject'));
                           $('#state').text('Terminés(3/4)');
                           
                             break;
-
         }
-
 }
 $(document).ready(function(){
-
     
     
-
     $('.no-border').focus(function(){
         
        $(this).css('border',"2px solid dodgerblue");
-
     }
     );
     $('.no-border').focusout(function(){
@@ -770,83 +735,57 @@ var tab=myMap.get("Adrar");
   for(i=0;i<tab.length;i++){
     $("select#commune").append('<option value="'+tab[i]+'">'+tab[i]+'</option>');
         }
-
-
     $("select#wilaya").change(function(){
          var selectedCountry = $(this).children("option:selected").val();
         
           $("select#commune").empty();
          var tab=myMap.get(selectedCountry);
-
           var i=0;
          for(i=0;i<tab.length;i++){
              
            $("select#commune").append('<option value="'+tab[i]+'">'+tab[i]+'</option>');
      
-
         }
-
     });
  
-
    
-
-
-
     
 });
-
-
-
-
-
-
 function change_lang()
 {
-
     var auth= "{{{ (Auth::user()) ? Auth::user()->name : null }}}";
    
      
     if( $("#lang").text()=="عربية")
     {
      
-
         var obj={
             "language":"ar",
             }
         localStorage.setItem('myJavaScriptObject', JSON.stringify(obj));
             location.reload();
-
         var current=window.location.pathname;
-
-
         switch(window.location.pathname){
-
             case '/register/ar':location.replace('/register/fr');break;
             case "/register/fr": location.replace('/register/ar');break;
             case '/fr/create_visitor':location.replace('/fr/create_visitor');break;
             case '/ar/create_visitor':location.replace('/ar/create_visitor');break;
-
 }
          if(window.location.pathname.substring(1,3)=="ar")      
             {
-
                 
             var chaine='/fr'+current.substring(3,current.length);
             location.replace(chaine);
             }
             else if(window.location.pathname.substring(1,3)=="fr")
             {
-
             var chaine='/ar'+current.substring(3,current.length);
             location.replace(chaine);
        
             }
         
-
         
        
-
         if(auth.length>0){
             
             $.ajax({
@@ -859,53 +798,38 @@ function change_lang()
         },
         success:function(response){
             location.reload();
-
         },
        });
-
     }
-
       
     }
     else if($("#lang").text()=="Fr"){
        
         
-
-
         var obj={
          "language":"fr",
          }
      
      localStorage.setItem('myJavaScriptObject', JSON.stringify(obj));    
          location.reload();
-
         var current=window.location.pathname;
-
         switch(window.location.pathname){
-
             case '/register/ar':location.replace('/register/fr');break;
             case "/register/fr": location.replace('/register/ar');break;
             case '/fr/create_visitor':location.replace('/fr/create_visitor');break;
             case '/ar/create_visitor':location.replace('/ar/create_visitor');break;
-
         }
-
         if(window.location.pathname.substring(1,3)=="ar")      
             {
-
                 
             var chaine='/fr'+current.substring(3,current.length);
             location.replace(chaine);
             }
             else if(window.location.pathname.substring(1,3)=="fr")
-
             {
-
             var chaine='/ar'+current.substring(3,current.length);
             location.replace(chaine);
-
             }
-
      if(auth.length>0){
             
             $.ajax({
@@ -918,16 +842,9 @@ function change_lang()
         },
         success:function(response){
             location.reload();
-
         },
        });
-
     }
-
-
     }
-
 }
-
-
 </script>

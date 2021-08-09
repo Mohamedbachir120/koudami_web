@@ -128,7 +128,7 @@
                         
                         <div class="text-secondary" id="state">انتهت(1/4)</div>
                     </div>
-                        <form method="POST" action="{{ route('register') }}" >
+                        <form method="POST" id="registerform"  action="{{ route('register') }}" >
                         @csrf
                             
                        <div class="card no-border shadow-sm" id="first">

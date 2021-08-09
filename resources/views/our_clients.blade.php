@@ -22,9 +22,12 @@
   <link rel="stylesheet" href="{{ asset('css/our.css') }}">
   <script src="{{ asset('js/language.js') }}" defer></script>
   <script src="{{ asset('js/app.js') }}" defer></script>
+
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
 
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 </head>
 
@@ -392,6 +395,8 @@
       <option value="El Meniaa">58 El Meniaa</option>
 
   </select>
+
+
 </div>
 <div>
 
@@ -441,66 +446,61 @@
 
 </div>
 </div>
-  <div class="">
+  <div class="" id="corp">
   
-
-  <div>
-  <p> <strong>{{ $msg ?? '' }} </strong> </p>
-  </div>
-
-  
-  @if($users->count() > 0)
+    <div>
+      <p> <strong>{{ $msg ?? '' }} </strong> </p>
+      </div>
+    
+     
   <div class="row">
-      @foreach ($users as $user)
-  
-
-   <div class="col-lg-4 col-md-6 col-sm-6 my-3" ontouchstart="this.classList.toggle('hover');">
-    <div class="container">
-      @if($user->photo != NULL)
-    <div class="front" style="background-image: url({{ Storage::disk('s3')->url($user->photo) }}) ;">
-      @else
-    <div class="front" style="background-image: url({{asset('css/avatar.png')}});">
+    
       
-      @endif
+  <div v-for="user in users" class="col-lg-4 col-md-6 col-sm-6 my-3">
+
+   <div class="col-md-12" ontouchstart="this.classList.toggle('hover');">
+    <div class="container">
+      <div  v-if="user.photo != 'empty' " >      
+          <div class="front"  style="background-image: url({{ Storage::disk('s3')->url('profile_pics/tes22_1628454106.jpg') }}) ;">
+            
+              <div class="inner">
+                <p>@{{ user.name }}</p>
+                <span class="p-0 toggledText">
+                  @{{ user.fonction }}</span>
+              </div>
+          </div>
+    </div>
+    <div v-else>
+
+    <div  class="front"  style="background-image: url({{asset('css/avatar.png')}});">
+      
+      
         <div class="inner">
-          <p>{{ $user->name }}</p>
+          <p>@{{ user.name }}</p>
           <span class="p-0 toggledText">
-            {{ $user->function }}</span>
+            @{{ user.fonction }}</span>
         </div>
       </div>
+    </div>
+   
       <div class="back">
         <div class="inner">
-        <p> <a href="/fr/contact_client/{{ $user->id }}" class="btn btn-primary" target="blank"><i class="fa fa-plus"></i> Détails</a></p>
+        <p> <a v-bind:href="'/fr/contact_client/'+user.id" class="btn btn-primary" target="blank"><i class="fa fa-plus"></i> Détails</a></p>
         </div>
-      </div>
+      
     </div>
   </div>
       
      
 
+</div>
 
-      @endforeach
     </div>
 
   </div>
-  @else
-  <div class="column">
 
-  <h3 class="text-center"> Aucun élément ne correspond à votre recherche 
-  </h3>
+    
 
-  <div style="display: flex; flex-direction:row; justify-content:center;">
-    <img src="{{ asset('css/no_result.jpg')}}" alt="koudami no result" class="responsive" width="auto" height="500px">
-
-  </div>
-</div>
-  
-
-@endif
-  <div class="row-links">
-
-  {{ $users->onEachSide(2)->links() }}
-  </div>
 </div>
   </div>
 </div>
@@ -565,257 +565,85 @@
 </html>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-<style>
-  *{
-  margin: 0;
-  padding: 0;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-}
 
-h1{
-  font-size: 2.5rem;
-  font-family: 'Montserrat';
-  font-weight: normal;
-  color: #444;
-  text-align: center;
-  margin: 2rem 0;
-}
-
-.wrapper{
-  width: 90%;
-  margin: 0 auto;
-  max-width: 80rem;
-}
-
-.cols{
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-}
-
-.col{
-  width: calc(25% - 2rem);
-  margin: 1rem;
-  cursor: pointer;
-}
-
-.container{
-  -webkit-transform-style: preserve-3d;
-          transform-style: preserve-3d;
-  -webkit-perspective: 1000px;
-          perspective: 1000px;
-}
-
-.front,
-.back{
-  background-size: cover;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.25);
-  border-radius: 10px;
-  background-position: center;
-  -webkit-transition: -webkit-transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
-  transition: -webkit-transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
-  -o-transition: transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
-  transition: transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
-  transition: transform .7s cubic-bezier(0.4, 0.2, 0.2, 1), -webkit-transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
-  -webkit-backface-visibility: hidden;
-          backface-visibility: hidden;
-  text-align: center;
-  min-height: 280px;
-  height: auto;
-  border-radius: 10px;
-  color: #fff;
-  font-size: 1rem;
-}
-
-.back{
-  background: #cedce7;
-  background: -webkit-linear-gradient(45deg,  #cedce7 0%,#596a72 100%);
-  background: -o-linear-gradient(45deg,  #cedce7 0%,#596a72 100%);
-  background: linear-gradient(45deg,  #cedce7 0%,#596a72 100%);
-}
-
-.front:after{
-  position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
-    width: 100%;
-    height: 100%;
-    content: '';
-    display: block;
-    opacity: .6;
-    background-color: #000;
-    -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-    border-radius: 10px;
-}
-.container:hover .front,
-.container:hover .back{
-    -webkit-transition: -webkit-transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
-    transition: -webkit-transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
-    -o-transition: transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
-    transition: transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
-    transition: transform .7s cubic-bezier(0.4, 0.2, 0.2, 1), -webkit-transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
-}
-
-.back{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-}
-
-.inner{
-    -webkit-transform: translateY(-50%) translateZ(60px) scale(0.94);
-            transform: translateY(-50%) translateZ(60px) scale(0.94);
-    top: 50%;
-    position: absolute;
-    left: 0;
-    width: 100%;
-    padding: 2rem;
-    -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-    outline: 1px solid transparent;
-    -webkit-perspective: inherit;
-            perspective: inherit;
-    z-index: 2;
-}
-
-.container .back{
-    -webkit-transform: rotateY(180deg);
-            transform: rotateY(180deg);
-    -webkit-transform-style: preserve-3d;
-            transform-style: preserve-3d;
-}
-
-.container .front{
-    -webkit-transform: rotateY(0deg);
-            transform: rotateY(0deg);
-    -webkit-transform-style: preserve-3d;
-            transform-style: preserve-3d;
-}
-
-.container:hover .back{
-  -webkit-transform: rotateY(0deg);
-          transform: rotateY(0deg);
-  -webkit-transform-style: preserve-3d;
-          transform-style: preserve-3d;
-}
-
-.container:hover .front{
-  -webkit-transform: rotateY(-180deg);
-          transform: rotateY(-180deg);
-  -webkit-transform-style: preserve-3d;
-          transform-style: preserve-3d;
-}
-
-.front .inner p{
-  font-size: 1.2rem;
-  margin-bottom: 2rem;
-  position: relative;
-}
-
-.front .inner p:after{
-  content: '';
-  width: 4rem;
-  height: 2px;
-  position: absolute;
-  background: #C6D4DF;
-  display: block;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
-  bottom: -.75rem;
-}
-
-.front .inner span{
-  color: rgb(255, 255, 255);
-  font-family: 'Montserrat';
-  font-weight: 500;
-}
-
-@media screen and (max-width: 64rem){
-  .col{
-    width: calc(33.333333% - 2rem);
+<script>
+  
+  class User {
+    constructor(id,name,fonction,photo) {
+    this.id = id;
+    this.name = name;
+    this.fonction = fonction;
+    this.photo = photo;
   }
-}
-
-@media screen and (max-width: 48rem){
-  .col{
-    width: calc(50% - 2rem);
   }
-}
+ const app = new Vue({
+    el: '#corp',
+    data: {
+        bornInf:0,
+        bornMax:18,
+        users:[],
+        enablescroll:true,
+        isloading:false
+        },
+      created () {
+    window.addEventListener('scroll', this.handleScroll);
+    },
+    destroyed () {
+    window.removeEventListener('scroll', this.handleScroll);
+      },
+      mounted() {
+        this.getusers();
+        
+      },
+      methods: {
 
-@media screen and (max-width: 32rem){
-  .col{
-    width: 100%;
-    margin: 0 0 2rem 0;
-  }
-}
+        handleScroll (event) {
+       // Any code to be executed when the window is scrolled
+       var limit = Math.max( document.body.scrollHeight, document.body.offsetHeight,document.documentElement.clientHeight, document.documentElement.scrollHeight );
+            
+            if(window.scrollY > 0.5 * limit && this.enablescroll == true && this.isloading == false)
+              {
+                this.getusers();
+              }
+         },
+        getusers() {
+          this.isloading = true;
+          axios.get('/get_users_vuejs',{params:{bornInf:this.bornInf,bornMax:this.bornMax}})
+                .then((response) => {
 
-  #cat,#cat_child{
-      display: none;
+                  if(response.data.length == 0){
+                    this.enablescroll = false;
+                  }
+                  for (var a in response.data){
+                    
+                   var photo = ((response.data[a])['photo'].length == 0) ? "empty" : (response.data[a])['photo'];
+                  this.users.push( new User(
+                        (response.data[a])['id'],
+                        (response.data[a])['name'],
+                        (response.data[a])['function'],
+                        photo
+                        
+                     )); }
+                 
+                  this.bornInf = this.bornInf + this.bornMax;
+                  this.isloading = false;
+               
+                })
+                .catch(function (error) {
+                  console.log(error);
+                  this.isloading = false;
+                });
+         
+        },
+     
+        
+    
+         
+
     }
    
-    @media only screen and (max-width:990px) {
-      
-        #cat{
-          display: block;
-        }
-    }    
-    
-  
- .toggledText span.trimmed{
-  display:none;
-}
-.read-more .more:before{
-  content:'Voir plus';
-}
-.showAll .toggledText span.morePoints{
-  display:none;
-}
-.showAll .toggledText span.trimmed{
-  display:inline;
-}
-.showAll .read-more .more:before{
-  content:'Voir moin';
-}
-p{
-  word-break: break-word;
-}
-
-.sub{
-  margin-bottom: 3% !important;
-
-}
-
-
-#articles    .row-flex {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-
-/* vertical spacing between columns */
-
-#articles [class*="col-"] {
-  margin-bottom: 30px;
-}
-
-
-.responsive{
-    width: 78%;
-    max-height: 400px;
-    height: auto;    
-    }
-    </style>
-
+}); 
+</script>
 <script>
   /*  map script*/
 

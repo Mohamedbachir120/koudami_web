@@ -486,5 +486,14 @@ public function confirm_email(Request $request){
 
 }
 
+public function get_users_vuejs(Request $request){
+
+    $users =DB::table('users')
+    ->where('type_compte','simple')
+    ->select('name', 'id','function','photo')
+    ->skip($request->bornInf)->take($request->bornMax)->get();
+    return  json_encode($users);
+
+}
 
 }
